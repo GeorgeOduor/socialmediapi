@@ -1,0 +1,385 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<style>
+    .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #1b1f23;
+    background-color: #bf0d0d;
+}
+
+
+
+
+
+
+
+</style>
+
+<div class="row">
+    {% block stats %}
+    <div class="col-12 col-lg-8 col-xl-8">
+        <div class="card">
+            <div class="card-header">What Next?
+                <div class="card-action">
+                    <div class="dropdown">
+                        <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
+                           data-toggle="dropdown">
+                            <i class="icon-options"></i>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list-inline">
+                    <li class="list-inline-item"><i class="fa fa-circle mr-2 text-white"></i>Today.</li>
+                </ul>
+                <div class="">
+                    <p>
+                        Here's your Social Media Action Plan based on the social media performance model deployed
+                        alongside this dashboard as of {% now "jS F Y H:i" %}
+
+                    </p>
+                    <p>
+                        Our model provides you with optimum parameters to maximize user engagement on a daily basis.
+                    </p>
+                    <p>
+                        Recommended post characteristics for higher fan base engagement.
+                    </p>
+
+                </div>
+                <br>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <div class="card radius-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <p class="mb-0">Post Length</p>
+                                        <h4 class="my-1"> {{ bet_params.postlength }} </h4>
+                                        <!--                                        <p class="mb-0 font-13"><i class="bx bxs-message-square-detail align-middle"></i>$34 from last week</p>-->
+                                    </div>
+                                    <div class="widgets-icons ms-auto"><i class="bx bxs-message-square-detail"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card radius-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <p class="mb-0">Hashtags</p>
+                                        <h4 class="my-1">{{ bet_params.hashtags }}</h4>
+
+                                    </div>
+                                    <div class="widgets-icons ms-auto"><i class='fadeIn animated bx bx-hash'></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card radius-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <p class="mb-0">Mentions</p>
+                                        <h4 class="my-1">{{ bet_params.mentions | safe }}</h4>
+                                    </div>
+                                    <div class="widgets-icons ms-auto"><span class="iconify" data-icon="bx-bx-at"
+                                                                             data-inline="false"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!--                <hr>-->
+                <div class="row">
+                    <div class="col">
+                        <div class="card radius-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <p class="mb-0">Engagement</p>
+                                        <h4 class="my-1">{{ bet_params.engagement }}</h4>
+                                        <!--                                        <p class="mb-0 font-13"><i class="bx bxs-up-arrow align-middle"></i>$34 from last week</p>-->
+                                    </div>
+                                    <div class="widgets-icons ms-auto"><i class="bx bxs-group"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card radius-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <p class="mb-0">Best Platform</p>
+                                        <h4 class="my-1">{{ bet_params.platform }}</h4>
+                                    </div>
+                                    <div class="widgets-icons ms-auto"><span class="iconify"
+                                                                             data-icon="akar-icons:{{ bet_params.platform }}-fill"
+                                                                             data-inline="false"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card radius-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <p class="mb-0">Best Format</p>
+                                        <h4 class="my-1">{{ bet_params.format | safe }}</h4>
+                                    </div>
+                                    <div class="widgets-icons ms-auto"><i class='bx bxs-message'></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-12 col-lg-4 col-xl-4">
+        <div class="card">
+            <div class="card-header">Expected performance by Post Format
+                <div class="card-action">
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container-2">
+                    <canvas id="chart2_"></canvas>
+
+                    <script>
+         var ctx = document.getElementById("chart2_").getContext('2d');
+			var myChart = new Chart(ctx, {
+				type: 'pie',
+				data: {
+					labels: {{ pie_chart.pie_labels |safe }},
+					datasets: [{
+						backgroundColor: [
+							"#ffffff",
+							"rgba(255, 255, 200, 1.90)",
+							"rgba(255, 255, 100, 0.80)",
+							"rgba(255, 255, 50, 0.70)",
+							"rgba(255, 255, 25, 0.60)",
+							"rgba(255, 255, 255, 0.50)",
+							"rgba(255, 255, 255, 0.40)",
+							"rgba(255, 255, 255, 0.10)",
+						],
+						data: {{pie_chart.pie_values |safe}},
+						borderWidth: [0, 0, 0, 0]
+					}]
+				},
+			options: {
+				maintainAspectRatio: false,
+			   legend: {
+				 position :"bottom",
+				 display: false,
+				    labels: {
+					  fontColor: '#212020',
+					  boxWidth:15
+				   }
+				}
+				,
+				tooltips: {
+				  displayColors:false
+				}
+			   }
+			});
+
+
+
+
+
+
+
+
+
+                    </script>
+                </div>
+            </div>
+
+            <div class="row m-0 row-group  border-top border-light-3">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <!--                        <thead>-->
+                        <!--                        <tr>-->
+                        <!--                            <th>Format</th>-->
+                        <!--                            <th>Percent</th>-->
+                        <!--                        </tr>-->
+                        <!--                        </thead>-->
+                        <tbody>
+
+                        {% if pie_chart.pie_values2 %}
+                        {% for i in pie_chart.pie_values2 %}
+                        <tr>
+                            <td><i class="bx bxs-circle text-white me-2"></i>{{ i.Format }}</td>
+                            <td>{{ i.Percent |floatformat:1 }} %</td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock stats %}
+</div><!--End Row-->
+
+<div class="row">
+    {% block table %}
+    <div class="col-12 col-lg-12 col-xl-12">
+        <div class="card">
+            <div class="card-header">Detailed Expected performance by Account
+                <div class="card-action">
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-pills mb-3" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" data-bs-toggle="pill" href="#primary-pills-home" role="tab"
+                           aria-selected="true">
+                            <div class="d-flex align-items-center">
+                                <div class="tab-icon"><i class='bx bx-facebook font-18 me-1'></i>
+                                </div>
+                                <div class="tab-title">Facebook</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" data-bs-toggle="pill" href="#primary-pills-profile" role="tab"
+                           aria-selected="false">
+                            <div class="d-flex align-items-center">
+                                <div class="tab-icon"><i class='bx bx-linkedin font-18 me-1'></i>
+                                </div>
+                                <div class="tab-title">LinkedIn</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" data-bs-toggle="pill" href="#primary-pills-contact" role="tab"
+                           aria-selected="false">
+                            <div class="d-flex align-items-center">
+                                <div class="tab-icon"><i class='bx bx-twitter font-18 me-1'></i>
+                                </div>
+                                <div class="tab-title">Twitter</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="primary-pills-home" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table align-items-center">
+                                <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Format</th>
+                                    <th>Post Length</th>
+                                    <th>Hashtags</th>
+                                    <th>Mentions</th>
+                                    <th>Expected_Engagement</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if facebook %}
+                                {% for i in facebook %}
+                                <tr>
+                                    <td> {{ i.Account }}</td>
+                                    <td>{{ i.Format }}</td>
+                                    <td>{{ i.Postlength }}</td>
+                                    <td>{{ i.Hashtags }}</td>
+                                    <td>{{ i.Mentions }}</td>
+                                    <td>{{ i.Expected_Engagement }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="primary-pills-profile" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table align-items-center">
+                                <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Format</th>
+                                    <th>Post Length</th>
+                                    <th>Hashtags</th>
+                                    <th>Mentions</th>
+                                    <th>Expected_Engagement</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if linkedin %}
+                                {% for i in linkedin %}
+                                <tr>
+                                    <td> {{ i.Account }}</td>
+                                    <td>{{ i.Format }}</td>
+                                    <td>{{ i.Postlength }}</td>
+                                    <td>{{ i.Hashtags }}</td>
+                                    <td>{{ i.Mentions }}</td>
+                                    <td>{{ i.Expected_Engagement }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="primary-pills-contact" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table align-items-center">
+                                <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Format</th>
+                                    <th>Post Length</th>
+                                    <th>Hashtags</th>
+                                    <th>Mentions</th>
+                                    <th>Expected_Engagement</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if twitter %}
+                                {% for i in twitter %}
+                                <tr>
+                                    <td> {{ i.Account }}</td>
+                                    <td>{{ i.Format }}</td>
+                                    <td>{{ i.Postlength }}</td>
+                                    <td>{{ i.Hashtags }}</td>
+                                    <td>{{ i.Mentions }}</td>
+                                    <td>{{ i.Expected_Engagement }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock table %}
+</div>
+{% endblock body %}

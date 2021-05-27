@@ -1,0 +1,52 @@
+{% load static %}
+<div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        <div>
+            <!--            <img src="{% static 'assets/images/logo-icon.png' %}" class="logo-icon" alt="logo icon">-->
+        </div>
+        <div>
+            <h4 class="logo-text">Lohika</h4>
+        </div>
+        <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+        </div>
+    </div>
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+
+        <li class="menu-label">Monitoring</li>
+        <li>
+            <a href="{% url 'dashboard:facebook' %}">
+                <div class="parent-icon"><span class="iconify" data-icon="akar-icons:facebook-fill" data-inline="false"></span>
+                </div>
+                <div class="menu-title">Facebook</div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'dashboard:linkedin' %}">
+                <div class="parent-icon"><span class="iconify" data-icon="akar-icons:linkedin-fill" data-inline="false"></span>
+                </div>
+                <div class="menu-title">Linkedin</div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'dashboard:twitter' %}">
+                <div class="parent-icon"><span class="iconify" data-icon="akar-icons:facebook-fill" data-inline="false"></span>
+                </div>
+                <div class="menu-title">Twitter</div>
+            </a>
+        </li>
+        <li class="menu-label">Action Points</li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-message-square-edit'></i>
+                </div>
+                <div class="menu-title">Next Best Action</div>
+            </a>
+            <ul>
+                <li><a href="{% url 'dashboard:nba' %}"><i class="bx bx-right-arrow-alt"></i>Today</a></li>
+            </ul>
+        </li>
+
+    </ul>
+    <!--end navigation-->
+</div>

@@ -1,0 +1,184 @@
+<div class="col-12 col-lg-8 col-xl-8 d-flex">
+    <div class="card radius-10 w-100">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div>
+                    <h6 class="mb-0">MonthlyProgress</h6>
+                </div>
+                <div class="font-22 ms-auto text-white"><i class="bx bx-dots-horizontal-rounded"></i>
+                </div>
+            </div>
+            <ul class="list-inline">
+                <br>
+                <li class="list-inline-item"><i class="fa fa-circle mr-2 text-white"></i>Total Engagements.</li>
+                <br>
+                <br>
+
+                <!--			  <li class="list-inline-item"><i class="fa fa-circle mr-2 text-light"></i>Old Visitor</li>-->
+            </ul>
+            <div class="chart-container-1">
+                <canvas id="chart11"></canvas>
+                <script>
+                var ctx = document.getElementById('chart11').getContext('2d');
+
+			var myChart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: {{ dates | safe }},
+					datasets: [{
+						label: 'New Visitor',
+						data: {{ dataset | safe }},
+						backgroundColor: '#fff',
+						borderColor: "transparent",
+						pointRadius :"0",
+						borderWidth: 3
+					}, {
+						label: 'Old Visitor',
+						data: [7, 5, 14, 7, 12, 6, 10, 6, 11, 5],
+						backgroundColor: "rgba(255, 255, 255, 0.25)",
+						borderColor: "transparent",
+						pointRadius :"0",
+						borderWidth: 1
+					}]
+				},
+			options: {
+				maintainAspectRatio: false,
+				legend: {
+				  display: false,
+				  labels: {
+					fontColor: '#ddd',
+					boxWidth:40
+				  }
+				},
+				tooltips: {
+				  displayColors:false
+				},
+			  scales: {
+				  xAxes: [{
+					ticks: {
+						beginAtZero:true,
+						fontColor: '#ddd'
+					},
+					gridLines: {
+					  display: true ,
+					  color: "rgba(221, 221, 221, 0.08)"
+					},
+				  }],
+				   yAxes: [{
+					ticks: {
+						beginAtZero:true,
+						fontColor: '#ddd'
+					},
+					gridLines: {
+					  display: true ,
+					  color: "rgba(221, 221, 221, 0.08)"
+					},
+				  }]
+				 }
+
+			 }
+			});
+
+
+                </script>
+            </div>
+
+
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
+            <div class="col">
+                <div class="p-3">
+                    <h5 class="mb-0">45.87M</h5>
+                    <small class="mb-0">Overall Visitor <span> <i
+                            class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3">
+                    <h5 class="mb-0">15:48</h5>
+                    <small class="mb-0">Visitor Duration <span> <i
+                            class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3">
+                    <h5 class="mb-0">245.65</h5>
+                    <small class="mb-0">Pages/Visit <span> <i
+                            class="bx bx-up-arrow-alt align-middle"></i> 5.62%</span></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-12 col-lg-4 col-xl-4 d-flex">
+    <div class="card radius-10 overflow-hidden w-100">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div>
+                    <h6 class="mb-0">Post performance by format.</h6>
+                </div>
+                <div class="font-22 ms-auto text-white"><i class="bx bx-dots-horizontal-rounded"></i>
+                </div>
+            </div>
+            <div class="chart-container-2 my-3">
+                <canvas id="chart2"></canvas>
+                <script>
+    	var ctx = document.getElementById("chart2").getContext('2d');
+			var myChart = new Chart(ctx, {
+				type: 'doughnut',
+				data: {
+					labels: {{ labels|safe }},
+					datasets: [{
+						backgroundColor: [
+							"white",
+							"#01516c",
+							"#01516c",
+							"red",
+						],
+						data: {{ datasets|safe }},
+						borderWidth: [0, 0, 0, 0]
+					}]
+				},
+			options: {
+				maintainAspectRatio: false,
+				cutoutPercentage: 60,
+			   legend: {
+				 position :"bottom",
+				 display: false,
+				    labels: {
+					  fontColor: '#ddd',
+					  boxWidth:15
+				   }
+				}
+				,
+				tooltips: {
+				  displayColors:false
+				}
+			   }
+			});
+
+                </script>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-items-center mb-0">
+                <tbody>
+
+                {% if PostFormats %}
+                       {% for i in PostFormats %}
+                  <tr>
+                    <td><i class="bx bxs-circle text-white me-2"></i>
+                        {{ i.Format  }}</td>
+                    <td>{{ i.sum }}</td>
+                    <td>{{ i.Prop }}%</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
